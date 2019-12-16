@@ -12,7 +12,12 @@ const routes: Routes = [
     path: 'home',
     loadChildren: () => import('./module/home/home.module').then(home => home.HomeModule),
     canActivate: [AuthGuard]
-  }
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('./module/admin/admin.module').then(admin => admin.AdminModule),
+    canActivate: [AuthGuard]
+  },
 ];
 
 @NgModule({

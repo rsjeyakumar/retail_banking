@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
-import { HttpService } from '../../../shared/services/http.service';
-import { EndPoints } from '../../../shared/services/end-points.enum';
-import { Tranaction, SuccessResponse } from '../../../models/app.models';
+import { HttpService } from '../../../../shared/services/http.service';
+import { EndPoints } from '../../../../shared/services/end-points.enum';
+import { Tranaction, SuccessResponse } from '../../../../models/app.models';
 
 @Component({
-  selector: 'app-landing',
-  templateUrl: './landing.component.html',
-  styleUrls: ['./landing.component.css']
+  selector: 'app-mortgage-summary',
+  templateUrl: './mortgage-summary.component.html',
+  styleUrls: ['./mortgage-summary.component.css']
 })
-export class LandingComponent implements OnInit {
+export class MortgageSummaryComponent implements OnInit {
   summaryRespose: Tranaction;
   accountNumber: number;
   userName: string;
@@ -17,6 +17,7 @@ export class LandingComponent implements OnInit {
   accountId: number;
   accountBalance: SuccessResponse;
   constructor(private http: HttpService) { }
+
 
   ngOnInit() {
     this.getApitransactionSummary();
@@ -30,7 +31,7 @@ export class LandingComponent implements OnInit {
   /* Get Api transaction Summary from api and show in the page  */
   getApitransactionSummary() {
     const userid = JSON.parse(sessionStorage.getItem('user')).accountId;
-    const endpoints = EndPoints.TRANSACTION + '/' + userid;
+    const endpoints = `${EndPoints.TRANSACTION}/${EndPoints.MORTGAGEACCOUNTS}/${userid}`;
     this.http.readData(endpoints).subscribe(
       (res: any) => {
         if (res.statusCode === 200) {
@@ -52,6 +53,5 @@ export class LandingComponent implements OnInit {
     );
 
   }
-
 
 }

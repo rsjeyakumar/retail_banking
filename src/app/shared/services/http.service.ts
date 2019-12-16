@@ -20,18 +20,24 @@ export class HttpService {
     })
   };
 
-
-  createData(url, body) {
-    return this.http.post(url, body, this.httpHeaders);
+  /* POST API logic is done by using createData method and it takes  */
+  createData(endpoints, body) {
+    const url = environment.apiUrl + endpoints;
+    return this.http.post(url, body);
   }
 
-  readData(url) {
+  /* GET API logic is done by using createData method and it takes  */
+  readData(endpoints) {
+    const url = environment.apiUrl + endpoints;
     return this.http.get(url);
   }
+
+  /* UPDATE API logic is done by using createData method and it takes  */
   updateData() {
 
   }
 
+  /* Delete API logic is done by using createData method and it takes  */
   delteData() { }
 
 

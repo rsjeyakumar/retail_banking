@@ -1,0 +1,108 @@
+<div class="container statuscheck">
+    <div class="row ">
+        <div class="col-12 mx-auto">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-9">
+                    <div class="col-12 py-5">
+                        <h2 class="text-center">Account List</h2>
+                    </div>
+                    <div class="col-12 statuschecksearch p-0 my-5">
+                        <p class="climbg-color "><span class="ml-3">Search Account by Partical Account Number</span></p>
+                        <p class="text-danger text-center">
+
+                            <div class="p-3">
+                                <form [formGroup]="searchAccount">
+
+                                    <div class="form-group row">
+                                        <label for="inputPassword" class="col-3 col-form-label text-right">Account
+                                            Number:</label>
+                                        <div class="col-4">
+                                            <!-- <p-autoComplete formControlName="accountNumber"
+                                                [suggestions]="filteredCountriesSingle"
+                                                (completeMethod)="filterAccount($event)" field="name" [size]="30"
+                                                placeholder="Account Number" [minLength]="1"></p-autoComplete> -->
+
+
+                                            <input type="text" formControlName="accountNumber" class="form-control"
+                                                id="inputPassword">
+                                        </div>
+                                        <button class="btn btn-primary"
+                                            (click)="filterAccount(searchAccount.value.accountNumber)">Search</button>
+                                    </div>
+                                </form>
+                            </div>
+                    </div>
+
+                    <div class="col-12 p-0 my-5">
+
+                        <p class="text-danger text-center"></p>
+                        <!-- {{policydetails?.message}}</p> -->
+                        <div class="p-3">
+                            <div class="row bg-dark p-3">
+                                <!-- <div class="col text-white text-center">
+                                    Account Id
+                                </div> -->
+                                <div class="col text-white text-center">
+                                    Account Holder Name
+                                </div>
+                                <div class="col text-white text-center">
+                                    Savings Account Number
+                                </div>
+                                <div class="col text-white text-center">
+                                    Account Type
+                                </div>
+                                <div class="col text-white text-center">
+                                    Action
+                                </div>
+                            </div>
+                            <div class="row p-3 my-2 border border-dark bus-body"
+                                *ngFor="let accountSummary of accountSummaryList">
+                                <div class="col text-center">
+                                    {{accountSummary?.userName}}
+                                </div>
+                                <div class="col text-center">
+                                    {{accountSummary?.accountNumber}}
+                                </div>
+                                <div class="col text-center">
+                                    {{accountSummary?.accountType}}
+                                </div>
+                                <div class="col my-auto">
+                                    <button type="button" class="btn btn-primary"
+                                        (click)="showDialog(accountSummary)">Create
+                                        Mortgage
+                                        Account</button>
+                                </div>
+                            </div>
+                            <div *ngIf="accountSummaryList?.length == 0"
+                                class="row p-3 my-2 border border-dark bus-body">
+                                <p class="col text-center text-danger">No Records Found</p>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-dialog header="Create Mortgage Account" [(visible)]="display" [modal]="true" [responsive]="true"
+    [style]="{width: '450px', minWidth: '400px'}" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
+
+    <div class="form-row" *ngIf="mortageResponse?.statusCode == '200'">
+        <div class="col">
+            <p class="text-success">{{mortageResponse.status}}</p>
+        </div>
+    </div>
+    <form [formGroup]="createMortgageForm">
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label for="inputEmail4">Loan Amount</label>
+                <input type="email" formControlName="propertyValue" class="form-control" id="inputEmail4">
+            </div>
+        </div>
+        <button type="submit" (click)="createMortgageAcc()" class="btn btn-primary btn-block">Create Account</button>
+    </form>
+</p-dialog>

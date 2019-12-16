@@ -1,116 +1,249 @@
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-md-12 min-vh-100 d-flex flex-column justify-content-center">
+        <div class="col-md-12">
             <div class="row">
-                <div class="col-lg-8 col-md-10 mx-auto">
-                    <!-- form card login -->
-                    <div class="card rounded shadow shadow-sm">
-                        <div class="card-body p-0">
-                            <div class="row">
-                                <div class="col-12 col-lg-6 p-5 ing-orange-bg white-font">
-                                    <div class="row h-100 justify-content-center align-items-center">
-                                        <h1>Welcome to Our Application</h1>
+                <!-- form card login -->
+                <div class="col-12 col-lg-3 p-5 bg-primary white-font">
+                    <div class="row  h-100 justify-content-center align-items-center brand">
+                        <div class="col">
+                            <p class="text-center"><i class="fa fa-university" aria-hidden="true"></i></p>
+                            <h1> Welcome to <br> People Bank </h1>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col mx-auto">
+                    <div class="row  h-100 justify-content-center align-items-center">
+                        <div [ngClass]="{'col-lg-9': !toggleLoginReg , 'col-lg-6': toggleLoginReg}"
+                            class="col-12  p-5  min-vh-100 d-flex flex-column justify-content-center">
+                            <form class="form" [formGroup]="loginForm" (ngSubmit)="loginSubmit()" *ngIf="toggleLoginReg"
+                                role="form" autocomplete="off" id="formLogin">
+                                <h2>Login</h2>
+                                <p> <i id="emailHelp" *ngIf="loginvalidation" class="form-text text-danger">Enter valid
+                                        user name and
+                                        Password</i></p>
+                                <div class="form-group">
+                                    <label for="uname1">User Id<span class="text-danger">*</span></label>
+                                    <input type="text" formControlName="username"
+                                        [ngClass]="{'is-invalid': loginForm?.controls?.username?.touched && loginForm?.controls?.username?.invalid}"
+                                        class="form-control form-control-lg rounded-0" name="uname1" id="uname1">
+                                    <div class="invalid-feedback">
+                                        <span *ngIf="loginForm?.controls?.username?.errors?.required">Please
+                                            enter correct Userid.</span> </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pwd1">Password<span class="text-danger">*</span></label>
+                                    <input type="password" formControlName="password"
+                                        [ngClass]="{'is-invalid': loginForm?.controls?.password?.touched && loginForm?.controls?.password?.invalid}"
+                                        class="form-control form-control-lg rounded-0" id="pwd1"
+                                        autocomplete="new-password">
+                                    <div class="invalid-feedback">
+                                        <span *ngIf="loginForm?.controls?.password?.errors?.required">Please
+                                            enter correct Password.</span> </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class=" form-group form-check form-check-inline">
+                                        <input class="form-check-input" formControlName="role" type="radio" name="role"
+                                            id="inlineRadio1" value="customer">
+                                        <label class="form-check-label" for="inlineRadio1">Customer</label>
+                                    </div>
+                                    <div class="form-group form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" formControlName="role" name="role"
+                                            id="inlineRadio2" value="admin">
+                                        <label class="form-check-label" for="inlineRadio2">Admin</label>
                                     </div>
                                 </div>
-                                <div class="col-12 col-lg-6 p-5">
-                                    <form class="form" [formGroup]="loginForm" (ngSubmit)="loginSubmit()"
-                                        *ngIf="toggleLoginReg" role="form" autocomplete="off" id="formLogin">
-                                        <h2>Login</h2>
-                                        <p> <i id="emailHelp" *ngIf="loginvalidation"
-                                                class="form-text text-danger">Enter valid user name and
-                                                Password</i></p>
-                                        <div class="form-group">
-                                            <label for="uname1">Username</label>
-                                            <!-- {{loginForm.controls.username.touched | json}} -->
-                                            <!-- {{loginForm.controls.password.invalid | json}} -->
-                                            <!-- *ngIf="loginForm?.controls?.username?.touched && loginForm?.controls?.username?.errors?.required" -->
-                                            <!-- {{loginForm?.controls?.username?.errors | json}} -->
-                                            <input type="text" formControlName="username"
-                                                [ngClass]="{'is-invalid': loginForm?.controls?.username?.touched && loginForm?.controls?.username?.invalid}"
-                                                class="form-control form-control-lg rounded-0" name="uname1"
-                                                id="uname1">
-                                            <div class="invalid-feedback">
-                                                <span *ngIf="loginForm?.controls?.username?.errors?.required">Oops, you
-                                                    missed
-                                                    this one.</span> </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="pwd1">Password</label>
-                                            <input type="password" formControlName="password"
-                                                [ngClass]="{'is-invalid': loginForm?.controls?.password?.touched && loginForm?.controls?.password?.invalid}"
-                                                class="form-control form-control-lg rounded-0" id="pwd1"
-                                                autocomplete="new-password">
-                                            <div class="invalid-feedback">
-                                                <span *ngIf="loginForm?.controls?.password?.errors?.required">Enter your
-                                                    password too!</span> </div>
-                                        </div>
-                                        <div class="form-group clearfix">
-                                            <button [disabled]="loginForm.invalid"
-                                                class="btn btn-primary btn-lg float-right" id="btnLogin">Login <i
-                                                    this.loginSpin=false; class="fa fa-refresh fa-spin"
-                                                    *ngIf="loginSpin"></i></button>
-                                        </div>
-                                        <div class="form-group clearfix">
-                                            <p class="btn register"> <i>Dont have an account?
-                                                    <b><a href="javascript:void(0)" (click)="toggleForm()">Sign
-                                                            Up</a></b></i></p>
-                                        </div>
-                                    </form>
-                                    <form class="form" [formGroup]="registerForm" (ngSubmit)="registerFormSubmit()"
-                                        *ngIf="!toggleLoginReg" role="form" autocomplete="off" id="formLogin">
-                                        <div class="form-group">
-                                            <a href="javascript:void(0)" (click)="toggleForm()"><i
-                                                    class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
-                                        </div>
-                                        <h2>Registration</h2>
+                                <div class="form-group clearfix">
+                                    <button [disabled]="loginForm.invalid"
+                                        class="btn btn-primary btn-lg float-right btn-block" id="btnLogin">Login
+                                        <i this.loginSpin=false; class="fa fa-refresh fa-spin"
+                                            *ngIf="loginSpin"></i></button>
+                                </div>
+                                <div class="form-group clearfix">
+                                    <p class="btn register"> <i>Don't have an account?
+                                            <b><a href="javascript:void(0)" (click)="toggleForm()">
+                                                    Register</a></b></i></p>
+                                </div>
+                            </form>
+                            <form class="form" [formGroup]="registerForm" *ngIf="!toggleLoginReg" role="form"
+                                autocomplete="off" id="formLogin">
+                                <div class="form-group">
+                                    <a href="javascript:void(0)" (click)="toggleForm()"><i class="fa fa-long-arrow-left"
+                                            aria-hidden="true"></i></a>
+                                </div>
+                                <h2>Account Registration</h2>
+                                <p class="text-success" *ngIf="registerApiResponse?.message">
+                                    {{registerApiResponse?.message}}</p>
+                                <p class="text-success" *ngIf="registerApiResponse?.userId">
+                                    <b> <span class="orange">User Id : </span>
+                                        {{registerApiResponse?.userId}}</b></p>
+                                <p class="text-success" *ngIf="registerApiResponse?.password">
+                                    <b> <span class="orange">Password : </span>
+                                        {{registerApiResponse?.password}}</b></p>
 
-                                        <div class="form-group">
-                                            <label for="unamer">UserName</label>
-                                            <input type="text" formControlName="username"
-                                                [ngClass]="{'is-invalid': registerForm?.controls?.username?.touched && registerForm?.controls?.username?.invalid}"
-                                                class="form-control form-control-lg rounded-0" name="uname1"
-                                                id="unamer">
+                                <div class="form-row">
+                                    <p class="text-success" *ngIf="registerApiResponse?.message">
+                                        {{apiMessage?.message}}
+                                    </p>
+                                    <button class="btn btn-primary" *ngIf="registerApiResponse?.message"
+                                        (click)="registerApiResponse = !registerApiResponse && toggleLoginReg = !toggleLoginReg">Login
+                                        to view dashboard</button>
+                                </div>
+                                <div *ngIf="!registerApiResponse?.message">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="inputEmail4">First Name<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text"
+                                                [ngClass]="{'is-invalid': registerForm?.controls?.firstname?.touched && registerForm?.controls?.firstname?.invalid}"
+                                                formControlName="firstname" class="form-control rounded-0"
+                                                id="inputEmail4" placeholder="First Name">
                                             <div class="invalid-feedback">
-                                                <span *ngIf="registerForm?.controls?.username?.errors?.required">Oops,
-                                                    you missed this one.</span></div>
+                                                <span *ngIf="registerForm?.controls?.firstname?.errors?.required">Please
+                                                    enter valid First name.</span></div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="passwordr">Password</label>
-                                            <input type="password" formControlName="password"
-                                                [ngClass]="{'is-invalid': registerForm?.controls?.password?.touched && registerForm?.controls?.password?.invalid}"
-                                                class="form-control form-control-lg rounded-0" id="passwordr"
-                                                autocomplete="new-password">
+                                        <div class="form-group col-md-6">
+                                            <label for="inputPassword4">Last Name<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text"
+                                                [ngClass]="{'is-invalid': registerForm?.controls?.lastname?.touched && registerForm?.controls?.lastname?.invalid}"
+                                                formControlName="lastname" class="form-control rounded-0"
+                                                id="inputPassword4" placeholder="Last Name">
                                             <div class="invalid-feedback">
-                                                <span *ngIf="registerForm?.controls?.password?.errors?.required">Enter
-                                                    your password too!</span></div>
+                                                <span *ngIf="registerForm?.controls?.lastname?.errors?.required">Please
+                                                    enter valid Last name.</span></div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="mailid">Email Id</label>
-                                            <input type="text" formControlName="emailid"
-                                                [ngClass]="{'is-invalid': registerForm?.controls?.emailid?.touched && registerForm?.controls?.emailid?.invalid}"
-                                                class="form-control form-control-lg rounded-0" id="mailid"
-                                                autocomplete="new-password">
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="inputAddress">Address<span class="text-danger">*</span></label>
+                                            <input type="text"
+                                                [ngClass]="{'is-invalid': registerForm?.controls?.address?.touched && registerForm?.controls?.address?.invalid}"
+                                                formControlName="address" class="form-control rounded-0"
+                                                id="inputAddress" placeholder="Enter address">
                                             <div class="invalid-feedback">
-                                                <span *ngIf="registerForm?.controls?.emailid?.errors?.required">
-                                                    Enter your Email too!</span>
-                                                <span *ngIf="registerForm?.controls?.emailid?.errors?.email">
-                                                    Entered Email is wrong!</span>
+                                                <span *ngIf="registerForm?.controls?.address?.errors?.required">Please
+                                                    enter valid Address.</span></div>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="inputAddress">Address1<span class="text-danger">*</span></label>
+                                            <input type="text"
+                                                [ngClass]="{'is-invalid': registerForm?.controls?.address1?.touched && registerForm?.controls?.address1?.invalid}"
+                                                formControlName="address1" class="form-control rounded-0"
+                                                id="inputAddress" placeholder="Enter address">
+                                            <div class="invalid-feedback">
+                                                <span *ngIf="registerForm?.controls?.address1?.errors?.required">Please
+                                                    enter valid Address.</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group  col-md-6">
+                                            <label for="inputAddress">Email</label>
+                                            <input type="text"
+                                                [ngClass]="{'is-invalid': registerForm?.controls?.email?.invalid}"
+                                                formControlName="email" class="form-control rounded-0" id="inputAddress"
+                                                placeholder="Email">
+                                            <div class="invalid-feedback">
+                                                <span *ngIf="registerForm?.controls?.email?.errors?.email">Please
+                                                    enter correct email address.</span></div>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="inputPassword4">Phone<span class="text-danger">*</span></label>
+                                            <input type="text"
+                                                [ngClass]="{'is-invalid': registerForm?.controls?.phone?.touched && registerForm?.controls?.phone?.invalid}"
+                                                formControlName="phone" class="form-control rounded-0"
+                                                id="inputPassword4" placeholder="Phone">
+                                            <div class="invalid-feedback">
+                                                <span *ngIf="registerForm?.controls?.phone?.errors?.required">Please
+                                                    enter correct Phone number</span>
+                                                <span *ngIf="registerForm?.controls?.phone?.errors?.pattern">mobile
+                                                    number must start with 7 or 8 or 9 and should be 10.
+                                                    digits</span>
                                             </div>
                                         </div>
-                                        <div class="form-group clearfix">
-                                            <button [disabled]="registerForm.invalid"
-                                                class="btn btn-primary btn-lg float-right" id="btnLogin">Register <i
-                                                    class="fa fa-refresh fa-spin" *ngIf="registerSpin"></i></button>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="inputPassword4">DOB<span class="text-danger">*</span></label>
+                                            <p-calendar styleClass="prime-calendar form-control" formControlName="date"
+                                                [ngClass]="{'is-invalid': registerForm?.controls?.date?.touched && registerForm?.controls?.date?.invalid}"
+                                                [monthNavigator]="true" [dateFormat]="dd/MM/yyyy" [yearNavigator]="true"
+                                                yearRange="1920:2019" [showIcon]="true"></p-calendar>
 
+                                            <div class="invalid-feedback">
+                                                <span *ngIf="registerForm?.controls?.date?.errors?.required">Please
+                                                    enter date of birth</span></div>
+
+                                            <div class="invalid-feedback">
+                                                <span *ngIf="registerForm?.controls?.date?.errors?.validatedob">User
+                                                    should be 18 years and above for Registration</span></div>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="inputPassword4">Goverment ID(PAN)<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text"
+                                                [ngClass]="{'is-invalid': registerForm?.controls?.pan?.touched && registerForm?.controls?.pan?.invalid}"
+                                                formControlName="pan" class="form-control rounded-0 uppercase"
+                                                id="inputPassword4" placeholder="Pan Number">
+                                            <div class="invalid-feedback">
+                                                <span *ngIf="registerForm?.controls?.pan?.errors?.required">Please
+                                                    enter PAN number.</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputPassword4">Pin Code<span class="text-danger">*</span></label>
+                                        <input type="text"
+                                            [ngClass]="{'is-invalid': registerForm?.controls?.pincode?.touched && registerForm?.controls?.pincode?.invalid}"
+                                            formControlName="pincode" class="form-control rounded-0" id="inputPassword4"
+                                            placeholder="Pin">
+                                        <div class="invalid-feedback">
+                                            <span *ngIf="registerForm?.controls?.pincode?.errors?.required">Please
+                                                enter correct Pin code number</span>
+                                            <span
+                                                *ngIf="!registerForm?.controls?.pincode?.errors?.required && registerForm?.controls?.pincode?.errors?.validateNumber">Please
+                                                enter Numeric values</span>
                                         </div>
 
-                                    </form>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <input class="form-check-input"
+                                                [ngClass]="{'is-invalid': registerForm?.controls?.terms?.touched && registerForm?.controls?.terms?.invalid}"
+                                                formControlName="terms" type="checkbox" id="gridCheck">
+                                            <label class="form-check-label" for="gridCheck">
+                                                I Agree terms & Condition<span class="text-danger">*</span>
+                                            </label>
+                                            <div class="invalid-feedback">
+                                                <span *ngIf="registerForm?.controls?.terms?.errors?.required">Please
+                                                    accept terms and condition.</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <button (click)="resetRegiserform()"
+                                                class="btn btn-primary btn-lg btn-block" id="btnLogin">Reset
+                                            </button>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <button class="btn btn-info btn-lg btn-block" (click)="registerFormSubmit()"
+                                                [disabled]="registerForm.invalid" id="btnLogin">Register <i
+                                                    class="fa fa-refresh fa-spin" *ngIf="registerSpin"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group clearfix">
+                                        <p class="btn register"> <i>Already have an account?
+                                                <b><a href="javascript:void(0)" (click)="toggleForm()">
+                                                        Sign in</a></b></i></p>
+                                    </div>
+
                                 </div>
 
-                            </div>
+                            </form>
                         </div>
-                        <!--/card-block-->
+
                     </div>
+
+
                     <!-- /form card login -->
 
                 </div>

@@ -9,3 +9,11 @@
   color: #fff;
   padding: 0 1rem;
 }
+
+.nav-item.active a.nav-link {
+  color: #f60;
+}
+
+.navbar {
+  border-bottom: 3px solid #343a40 !important;
+}

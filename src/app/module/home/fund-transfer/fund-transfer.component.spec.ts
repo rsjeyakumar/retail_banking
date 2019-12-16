@@ -1,16 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { LandingComponent } from './landing.component';
+import { SharedModule } from '../../../shared/shared.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { FundTransferComponent } from './fund-transfer.component';
 
-describe('LandingComponent', () => {
-  let component: LandingComponent;
-  let fixture: ComponentFixture<LandingComponent>;
+describe('FundTransferComponent', () => {
+  let component: FundTransferComponent;
+  let fixture: ComponentFixture<FundTransferComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [LandingComponent],
-      imports: [HttpClientTestingModule]
+      declarations: [FundTransferComponent],
+      imports: [SharedModule, HttpClientTestingModule]
     })
       .compileComponents();
   }));
@@ -23,8 +23,10 @@ describe('LandingComponent', () => {
       accountId: 43
     };
     sessionStorage.setItem('user', JSON.stringify(user));
-    fixture = TestBed.createComponent(LandingComponent);
+    fixture = TestBed.createComponent(FundTransferComponent);
     component = fixture.componentInstance;
+
+
     fixture.detectChanges();
   });
 

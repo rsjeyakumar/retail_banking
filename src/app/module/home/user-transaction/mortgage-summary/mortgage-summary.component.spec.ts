@@ -1,15 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LandingComponent } from './landing.component';
+import { MortgageSummaryComponent } from './mortgage-summary.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-
-describe('LandingComponent', () => {
-  let component: LandingComponent;
-  let fixture: ComponentFixture<LandingComponent>;
+describe('MortgageSummaryComponent', () => {
+  let component: MortgageSummaryComponent;
+  let fixture: ComponentFixture<MortgageSummaryComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [LandingComponent],
+      declarations: [MortgageSummaryComponent],
       imports: [HttpClientTestingModule]
     })
       .compileComponents();
@@ -23,7 +22,7 @@ describe('LandingComponent', () => {
       accountId: 43
     };
     sessionStorage.setItem('user', JSON.stringify(user));
-    fixture = TestBed.createComponent(LandingComponent);
+    fixture = TestBed.createComponent(MortgageSummaryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
