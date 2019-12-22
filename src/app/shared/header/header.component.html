@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg bg-white shadow d-flex navbar-light" *ngIf="suserDetails">
-    <a class="navbar-brand" href="#">People Bank</a>
+    <a class="navbar-brand" href="#">Rich Bank</a>
     <button class="navbar-toggler" type="button" (click)="toggleNavbar()" data-toggle="collapse"
         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
         aria-label="Toggle navigation">
@@ -8,24 +8,29 @@
 
     <div class="collapse navbar-collapse" [ngClass]="{'show': showMobileMenu}" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item" [routerLinkActive]="'active'" *ngIf="suserDetails.userName !== 'admin'">
-                <a class="nav-link" [routerLink]="['/home']" href="#"><i class="fa fa-home"
-                        aria-hidden="true"></i>Account
-                    Summary
-                    <span class="sr-only">(current)</span></a>
+            <li class="nav-item dropdown" [routerLinkActive]="'active'">
+                <a class="nav-link" (click)="summary.toggle($event)" href="javascript:void(0)" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" [routerLink]="['/home']" aria-expanded="false"><i
+                        class="fa fa-home" aria-hidden="true"></i>
+                    Account Summary
+                </a>
+
             </li>
-            <li class="nav-item" [routerLinkActive]="'active'" *ngIf="suserDetails.userName !== 'admin'">
-                <a class="nav-link" [routerLink]="['/home/mortage-summary']" href="#">Mortgage Summary
-                    <span class="sr-only">(current)</span></a>
+            <li class="nav-item dropdown" [routerLinkActive]="'active'">
+                <a class="nav-link" (click)="payee.toggle($event)" href="javascript:void(0)" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" [routerLink]="['/home']" aria-expanded="false"><i
+                        class="fa fa-list-ol" aria-hidden="true"></i>
+                    Manage Beneficiary
+                </a>
+
             </li>
-            <li class="nav-item" [routerLinkActive]="'active'" *ngIf="suserDetails.userName !== 'admin'">
+
+            <li class="nav-item" (click)="showChildrenMenu = false" [routerLinkActive]="'active'"
+                *ngIf="suserDetails?.userName !== 'admin'">
                 <a class="nav-link" [routerLink]="['/home/fund-transfer']" href="javascript:void(0)">Fund Transfer</a>
             </li>
             <!-- user-transaction -->
-            <li class="nav-item" [routerLinkActive]="'active'" *ngIf="suserDetails.userName !== 'admin'">
-                <a class="nav-link" [routerLink]="['/home/user-transaction']" href="javascript:void(0)">View my
-                    transactions</a>
-            </li>
+
             <!--  <li class="nav-item">
                 <a class="nav-link" href="#"> <i class="fa fa-bell-o" aria-hidden="true"></i><span
                         class="rounded-circle alerts"><span class="numberofalerts">2</span></span>Alerts</a>
@@ -38,11 +43,42 @@
     </div>
 </nav>
 <p-overlayPanel #op>
-
     <a class="dropdown-item" href="javascript:void()">You Signed in as</a>
     <a class="dropdown-item" href="javascript:void()"><b>{{suserDetails?.userName}}</b></a>
-
     <div class="dropdown-divider"></div>
     <a class="dropdown-item" href="javascript:void(0)" (click)="logOut()">LogOut</a>
+</p-overlayPanel>
 
+<p-overlayPanel #payee>
+    <ul class="list-group" aria-labelledby="dropdownMenuButton">
+        <li class="nav-item list-group-item">
+            <a class="nav-link" href="javascript:void(0)" [routerLink]="['/payee/list']">Favourite
+                beneficiary
+                List<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item list-group-item">
+            <a class="nav-link" href="javascript:void(0)" [routerLink]="['/payee/manage/add']">Add New
+                Beneficiary</a>
+        </li>
+    </ul>
+</p-overlayPanel>
+
+<p-overlayPanel #summary>
+    <ul class="list-group" aria-labelledby="dropdownMenuButton">
+        <li class="nav-item list-group-item" [routerLinkActive]="'active'" *ngIf="suserDetails?.userName !== 'admin'">
+            <a (click)="showChildrenMenu = false" class="nav-link" [routerLink]="['/home']" href="#">Savings
+                Summary
+                <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item list-group-item" [routerLinkActive]="'active'" *ngIf="suserDetails?.userName !== 'admin'">
+            <a (click)="showChildrenMenu = false" class="nav-link" [routerLink]="['/home/mortage-summary']"
+                href="#">Mortgage Summary
+                <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item list-group-item" [routerLinkActive]="'active'" *ngIf="suserDetails?.userName !== 'admin'">
+            <a (click)="showChildrenMenu = false" class="nav-link" [routerLink]="['/home/user-transaction']"
+                href="javascript:void(0)">View my
+                transactions</a>
+        </li>
+    </ul>
 </p-overlayPanel>

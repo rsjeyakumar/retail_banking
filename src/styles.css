@@ -57,7 +57,7 @@ html {
   color: #fff;
 }
 body .fa {
-  color: #007bff !important;
+  color: #007bff;
 }
 body button .fa {
   color: #fff;
@@ -120,7 +120,9 @@ body button .fa {
     transform: rotate(360deg);
   }
 }
-
+.custom-toast .ui-toast-message {
+  background-color: #17a2b8 !important;
+}
 #cover-spin::after {
   content: "";
   display: block;

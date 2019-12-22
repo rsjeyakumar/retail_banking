@@ -7,7 +7,7 @@
                     <div class="row  h-100 justify-content-center align-items-center brand">
                         <div class="col">
                             <p class="text-center"><i class="fa fa-university" aria-hidden="true"></i></p>
-                            <h1> Welcome to <br> People Bank </h1>
+                            <h1> Welcome to <br> Rich Bank </h1>
                         </div>
 
                     </div>
@@ -86,7 +86,7 @@
                                         {{apiMessage?.message}}
                                     </p>
                                     <button class="btn btn-primary" *ngIf="registerApiResponse?.message"
-                                        (click)="registerApiResponse = !registerApiResponse && toggleLoginReg = !toggleLoginReg">Login
+                                        (click)="toggleForm()">Login
                                         to view dashboard</button>
                                 </div>
                                 <div *ngIf="!registerApiResponse?.message">

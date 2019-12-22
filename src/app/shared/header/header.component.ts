@@ -12,6 +12,8 @@ export class HeaderComponent implements OnInit {
   subjectData: object;
   suserDetails: User;
   showMobileMenu = false;
+  showChildrenMenu = false;
+  showPayeeMenu = false;
   constructor(private comser: CommunicationService, private router: Router) { }
 
   ngOnInit() {

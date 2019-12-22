@@ -4,5 +4,7 @@ export enum EndPoints {
     PAYEELIST = 'users/accounts',
     REGISTRATION = 'users',
     MONTHLYTRANSACTION = 'transactions/users',
-    MORTGAGEACCOUNTS = 'mortgageaccounts'
+    MORTGAGEACCOUNTS = 'mortgageaccounts',
+    BENEFICIARYLIST = 'payee/accounts',
+    IFSCCODESEARCH = 'ifsc/codes'
 }

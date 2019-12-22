@@ -10,8 +10,15 @@
   padding: 0 1rem;
 }
 
-.nav-item.active a.nav-link {
-  color: #f60;
+.nav-item a.nav-link.active {
+  color: #000;
+}
+.nav-item.dropdown.active .nav-item.active .nav-link {
+  color: #007bff;
+}
+
+.nav-item.dropdown.active .nav-item .nav-link {
+  font-size: 15px;
 }
 
 .navbar {

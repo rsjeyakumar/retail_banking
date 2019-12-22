@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
   /* toggle login form and registration form */
 
   toggleForm() {
-    this.toggleLoginReg = !this.toggleLoginReg;
+    return this.toggleLoginReg = !this.toggleLoginReg;
   }
 
   /* Login api submit */

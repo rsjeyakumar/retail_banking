@@ -44,7 +44,6 @@ export class AdminComponent implements OnInit {
         console.log(res.userAccounts);
       }
     );
-
   }
 
   /* filter the account based on user enter */

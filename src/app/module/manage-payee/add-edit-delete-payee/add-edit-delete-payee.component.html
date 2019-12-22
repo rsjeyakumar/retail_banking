@@ -1,0 +1,142 @@
+<!-- <button type="button" pButton (click)="showSuccess()" label="Success" class="ui-button-success"></button> -->
+
+<div class="container payee">
+    <div class="row">
+        <div class="col-6 mx-auto">
+            <h1 class="text-center my-4"> <span class="text-capitalize">{{pageName}}</span> Beneficiary</h1>
+            <form [formGroup]="addpayee">
+
+                <div class="form-group">
+                    <label for="exampleInputpayee1">Beneficiary Nick Name<span class="text-danger">*</span></label>
+                    <input type="email"
+                        [ngClass]="{'is-invalid': addpayee?.controls?.payee_nick_name?.touched && addpayee?.controls?.payee_nick_name?.invalid}"
+                        formControlName="payee_nick_name" class="form-control" id="exampleInputpayee1"
+                        aria-describedby="payee name" placeholder="Beneficiary Nick Name">
+                    <div class="invalid-feedback">
+                        <span *ngIf="addpayee?.controls?.payee_nick_name?.errors?.required">Enter Beneficiary
+                            Name</span> </div>
+                </div>
+                <!-- <div class="form-group">
+                    <label for="exampleInputpayee1">Beneficiary Name<span class="text-danger">*</span></label>
+                    <input type="email"
+                        [ngClass]="{'is-invalid': addpayee?.controls?.payee_name?.touched && addpayee?.controls?.payee_name?.invalid}"
+                        formControlName="payee_name" class="form-control" id="exampleInputpayee1"
+                        aria-describedby="payee name" placeholder="Payee Name">
+                    <div class="invalid-feedback">
+                        <span *ngIf="addpayee?.controls?.name?.errors?.required">Please
+                            enter correct Name.</span> </div>
+                </div> -->
+                <div class="form-group">
+                    <label for="exampleInputpayee1">Beneficiary Account Number<span class="text-danger">*</span></label>
+                    <input type="text"
+                        [ngClass]="{'is-invalid': addpayee?.controls?.payee_accno?.touched && addpayee?.controls?.payee_accno?.invalid}"
+                        formControlName="payee_accno" class="form-control" id="exampleInputpayee1"
+                        aria-describedby="payee name" placeholder="Beneficiary Acc No">
+                    <div class="invalid-feedback">
+                        <span *ngIf="addpayee?.controls?.payee_accno?.errors">Enter Beneficiary Account
+                            Number</span>
+                        <!-- <span *ngIf="addpayee?.controls?.payee_accno?.errors?.validateNumber">Only numbers allowed in
+                            Beneficiary account</span> -->
+                    </div>
+                    <p class="text-danger" *ngIf="addeditresponse">
+                        {{addeditresponse.message}}
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputpayee1">Beneficiary Confirm Account Number<span
+                            class="text-danger">*</span></label>
+                    <input type="text"
+                        [ngClass]="{'is-invalid': addpayee?.controls?.payee_confirm_accno?.touched && addpayee?.controls?.payee_confirm_accno?.invalid}"
+                        formControlName="payee_confirm_accno" class="form-control" id="exampleInputpayee1"
+                        aria-describedby="payee name" placeholder="Beneficiary Confirm Acc No">
+                    <div class="invalid-feedback">
+                        <p *ngIf="addpayee?.controls?.payee_confirm_accno?.errors?.required">Enter Beneficiary Account
+                            Number</p>
+
+                    </div>
+                    <p class="text-danger" *ngIf="addpayee.value.payee_accno !== addpayee.value.payee_confirm_accno">
+
+                        Account number not matched
+                    </p>
+
+                    <div class="invalid-feedback">
+                        <p>Account
+                            number not matched</p>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputpayee1">IFSC code<span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <input type="text"
+                            [ngClass]="{'is-invalid': addpayee?.controls?.ifcs_code?.touched && addpayee?.controls?.ifcs_code?.invalid}"
+                            formControlName="ifcs_code" class="form-control uppercase" id="exampleInputpayee1"
+                            aria-describedby="payee name" placeholder="IFSC Code">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroupPrepend"
+                                (click)="getIFSCDetails(addpayee?.controls?.ifcs_code?.value)"><i class="fa fa-search"
+                                    aria-hidden="true"></i></span>
+                        </div>
+                        <div class="invalid-feedback">
+                            <span *ngIf="addpayee?.controls?.ifcs_code?.errors?.required">Enter Your IFSC Code</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row my-3" *ngIf="IFSCdetails?.ifscCode">
+                    <div class="col-6">
+                        <b> Bank Name: </b>{{IFSCdetails?.ifscCode?.bankName}}
+                    </div>
+                    <div class="col-6">
+                        <b> Branch Name: </b> {{IFSCdetails?.ifscCode?.branchName}}
+                    </div>
+                </div>
+                <div class="form-row my-3" *ngIf="IFSCdetails?.statusCode == 404">
+                    <div class="col-6">
+                        <b> {{IFSCdetails?.message}} </b>
+                    </div>
+
+                </div>
+                <!-- <div class="form-group">
+                    <label for="exampleInputpayee1">Mark Favourite:</label>
+                    &nbsp; <input formControlName="isFavorite" type="checkbox"
+                        aria-label="Checkbox for following text input">
+                </div> -->
+                <div class="form-group" *ngIf="deletePayeemsg?.statusCode == 200">
+                    <b class="text-success">{{deletePayeemsg?.message}}</b>
+                </div>
+                <div class="form-row row">
+                    <div class="form-group col align-self-start">
+                        <button class="btn btn-block btn-primary" (click)="resetform(pageName)">Reset</button>
+                    </div>
+                    <div class="form-group col" *ngIf="pageName == 'edit'">
+                        <button class="btn btn-block btn-danger" (click)="showConfirm()">Delete</button>
+                    </div>
+                    <div class="form-group col align-self-end">
+                        <button [disabled]="addpayee.invalid && !IFSCdetails?.ifscCode" (click)="addPayee()"
+                            class="btn btn-block btn-warning">{{pageName == 'edit' ? 'Update' : 'Add'}}</button>
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<p-toast position="center" styleClass="custom-toast" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div style="text-align: center">
+            <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+            <h3>{{message.summary}}</h3>
+            <p>{{message.detail}}</p>
+        </div>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-6">
+                <button type="button" pButton (click)="onConfirm()" label="Yes" class="ui-button-success"></button>
+            </div>
+            <div class="ui-g-6">
+                <button type="button" pButton (click)="onReject()" label="No" class="ui-button-secondary"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>

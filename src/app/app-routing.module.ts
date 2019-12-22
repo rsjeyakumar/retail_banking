@@ -18,6 +18,11 @@ const routes: Routes = [
     loadChildren: () => import('./module/admin/admin.module').then(admin => admin.AdminModule),
     canActivate: [AuthGuard]
   },
+  {
+    path: 'payee',
+    loadChildren: () => import('./module/manage-payee/manage-payee.module').then(payee => payee.ManagePayeeModule),
+    canActivate: [AuthGuard]
+  }
 ];
 
 @NgModule({

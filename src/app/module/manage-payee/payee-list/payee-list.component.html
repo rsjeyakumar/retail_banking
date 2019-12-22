@@ -1,0 +1,80 @@
+<div class="container payee">
+    <div class="row">
+        <div class="col-10 mx-auto">
+            <h1 class="text-center my-4">Favourite beneficiary List</h1>
+            <div class="row bg-dark p-3">
+                <div class="col text-white text-center">
+                    #
+                </div>
+                <div class="col text-white text-center">
+                    Payee Nick Name
+                </div>
+                <div class="col text-white text-center">
+                    Account Number
+                </div>
+                <div class="col text-white text-center">
+                    Bank Name
+                </div>
+                <div class="col text-white text-center">
+                    Branch Name
+                </div>
+                <div class="col-3 text-white text-center">
+                    Action
+                </div>
+            </div>
+            <div class="row p-3 my-2 border border-dark bus-body"
+                *ngIf="payeeList?.payees === null || payeeList?.payees.length == 0">
+                <div class="col">No Records found</div>
+            </div>
+            <div class="row p-3 my-2 border border-dark bus-body" *ngFor="let item of payeeList?.payees;let i = index">
+                <div class="col">
+                    <p class="text-center">{{i+1}}</p>
+                </div>
+
+                <div class="col">
+                    <p class="text-center">{{item.nickName}}</p>
+
+                </div>
+                <div class="col">
+                    <p class="text-center">{{item.accountNumber}}</p>
+
+                </div>
+                <div class="col">
+                    <p class="text-center">{{item.bankName}}</p>
+                </div>
+                <div class="col">
+                    <p class="text-center">{{item.branchName}}</p>
+                </div>
+                <div class="col-3 mx-auto text-center">
+                    <button type="button" class="btn btn-warning" (click)="editPayee(item.id)"><i
+                            class="fa fa-pencil-square-o text-white" aria-hidden="true"></i> Edit</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-danger" (click)="showConfirm(item.id)"> <i
+                            class="fa fa-trash-o text-white" aria-hidden="true"></i> Delete</button>
+
+                </div>
+            </div>
+            <div class="text-right">
+                <button class="btn btn-primary text-right" [routerLink]="['/payee/manage','add']"><i class="fa fa-plus"
+                        aria-hidden="true"></i> Add a new Beneficiary</button>
+            </div>
+        </div>
+    </div>
+</div>
+<p-toast position="center" styleClass="custom-toast" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div style="text-align: center">
+            <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+            <h3>{{message.summary}}</h3>
+            <p>{{message.detail}}</p>
+        </div>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-6">
+                <button type="button" pButton (click)="onConfirm()" label="Yes" class="ui-button-success"></button>
+            </div>
+            <div class="ui-g-6">
+                <button type="button" pButton (click)="onReject()" label="No" class="ui-button-secondary"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>

@@ -1,4 +1,15 @@
 /* User model */
+/*
+Java MVC desing 
+
+entities(model) => list of field names
+
+controller => it controls all the methods in service impl
+Service => interface => only method declaration
+serviceimpl =>implmentation loginc goes here
+
+
+*/
 export interface User {
     userName: string;
     password: string;
@@ -6,7 +17,7 @@ export interface User {
 /* Tranaction model */
 export interface Tranaction {
     accountId: number;
-    payeeAccountId: number;
+    payeeAccountNumber: number;
     remarks: string;
     transferAmount: number;
 }
@@ -64,4 +75,37 @@ export interface MARTAGEACCOUNTRESPONSE {
     message: string;
 
 }
+export interface LISTPAYEERESPONSE {
+    message: string;
+    statusCode: number;
+    payees: LISTPAYEE[];
+}
 
+export interface LISTPAYEE {
+    payeeId: number;
+    accountNumber: string;
+    payeeNickName: string;
+    bankName: string;
+    branchName: string;
+    isFavorite: string;
+}
+
+export interface IFSCCODERESPONSE {
+    message: string;
+    statusCode: number;
+    ifscCode: IFSCCODE;
+}
+
+export interface IFSCCODE {
+    ifscCode: string;
+    bankName: string;
+    branchName: string;
+}
+
+export interface ADDPAYEEREQUEST {
+    accountNumber: number;
+    customerId: number;
+    ifscCode: string;
+    isFavorite: string;
+    nickName: string;
+}

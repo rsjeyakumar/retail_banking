@@ -19,6 +19,7 @@ export class FundTransferComponent implements OnInit {
   accountId: number;
   payeeList: [];
   accountBalance: SuccessResponse;
+  phoneNumber: number;
   constructor(private http: HttpService) { }
 
   ngOnInit() {
@@ -27,10 +28,11 @@ export class FundTransferComponent implements OnInit {
     this.userName = JSON.parse(sessionStorage.getItem('user')).userName;
     this.accountType = JSON.parse(sessionStorage.getItem('user')).accountType;
     this.accountId = JSON.parse(sessionStorage.getItem('user')).accountId;
+    this.phoneNumber = JSON.parse(sessionStorage.getItem('user')).phoneNumber;
 
     /* fund transfer form creation */
     this.fundTransferForm = new FormGroup({
-      payeeAccountId: new FormControl(null, [Validators.required]),
+      payeeAccountNumber: new FormControl(null, [Validators.required]),
       transferAmount: new FormControl(null, [Validators.required, this.validatePositive]),
       remarks: new FormControl(null, [Validators.required])
     });
@@ -60,7 +62,7 @@ export class FundTransferComponent implements OnInit {
     const endpoint = EndPoints.TRANSACTION;
     const postObj: Tranaction = {
       accountId: this.accountId,
-      payeeAccountId: Number(this.fundTransferForm.value.payeeAccountId),
+      payeeAccountNumber: this.fundTransferForm.value.payeeAccountNumber,
       remarks: this.fundTransferForm.value.remarks,
       transferAmount: Number(this.fundTransferForm.value.transferAmount)
     };
@@ -84,13 +86,10 @@ export class FundTransferComponent implements OnInit {
 
   /* Get Payee list */
   getPayeeList() {
-    const endpoint = EndPoints.PAYEELIST + '/' + this.accountId;
+    const endpoint = EndPoints.PAYEELIST + '/' + this.phoneNumber;
     this.http.readData(endpoint).subscribe(
       (res: []) => {
-        if (res.length >= 0) {
-          this.payeeList = res;
-        }
-
+        this.payeeList = res;
       }
     );
 

@@ -31,17 +31,19 @@
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Beneficiary List<span
                                     class="text-danger">*</span></label>
+
                             <select
-                                [ngClass]="{'is-invalid': fundTransferForm?.controls?.payeeAccountId?.touched && fundTransferForm?.controls?.payeeAccountId?.invalid}"
-                                class="form-control form-control-lg  rounded-0" formControlName="payeeAccountId"
+                                [ngClass]="{'is-invalid': fundTransferForm?.controls?.payeeAccountNumber?.touched && fundTransferForm?.controls?.payeeAccountNumber?.invalid}"
+                                class="form-control form-control-lg  rounded-0" formControlName="payeeAccountNumber"
                                 id="exampleFormControlSelect1">
-                                <option *ngFor="let payee of payeeList" [value]="payee.accountId">
-                                    {{payee?.accountType}} - {{payee?.payeeName}} -
-                                    {{payee?.accountNumber}}
+                                <option *ngFor="let payee of payeeList?.payees" [value]="payee?.accountNumber">
+                                    {{payee?.nickName}} - {{payee?.accountNumber}} -
+                                    {{payee?.bankName}}
                                 </option>
                             </select>
                             <div class="invalid-feedback">
-                                <span *ngIf="fundTransferForm?.controls?.payeeAccountId?.errors?.required">Please select
+                                <span *ngIf="fundTransferForm?.controls?.payeeAccountNumber?.errors?.required">Please
+                                    select
                                     Beneficiary</span> </div>
                         </div>
 
@@ -87,9 +89,9 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <button (click)="fundTransfer()" class="btn btn-primary btn-lg btn-block float-right"
-                                    [disabled]="fundTransferForm.invalid" id="btnLogin">Confirm <i
-                                        class="fa fa-refresh fa-spin" *ngIf="fundTransferSpin"></i></button>
-
+                                    id="btnLogin">Confirm <i class="fa fa-refresh fa-spin"
+                                        *ngIf="fundTransferSpin"></i></button>
+                                <!-- [disabled]="fundTransferForm.invalid"  -->
 
                             </div>
                         </div>
